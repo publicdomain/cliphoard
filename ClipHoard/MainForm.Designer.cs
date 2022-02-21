@@ -54,8 +54,6 @@ namespace ClipHoard
 			this.copiedItemsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.copiedCountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.mainDataGridView = new System.Windows.Forms.DataGridView();
-			this.titleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.valueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.hotkeyCombinationLabel = new System.Windows.Forms.Label();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -103,7 +101,7 @@ namespace ClipHoard
 			this.newToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
 			this.newToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-			this.newToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
 			this.newToolStripMenuItem1.Text = "&New";
 			this.newToolStripMenuItem1.Click += new System.EventHandler(this.OnNewToolStripMenuItem1Click);
 			// 
@@ -113,14 +111,14 @@ namespace ClipHoard
 			this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
 			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
 			this.openToolStripMenuItem.Text = "&Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.OnOpenToolStripMenuItemClick);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
 			// 
 			// saveToolStripMenuItem
 			// 
@@ -128,19 +126,19 @@ namespace ClipHoard
 			this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
 			this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
 			this.saveToolStripMenuItem.Text = "&Save";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.OnSaveToolStripMenuItemClick);
 			// 
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparator3.Size = new System.Drawing.Size(143, 6);
 			// 
 			// exitToolStripMenuItem1
 			// 
 			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
 			this.exitToolStripMenuItem1.Text = "E&xit";
 			this.exitToolStripMenuItem1.Click += new System.EventHandler(this.OnExitToolStripMenuItem1Click);
 			// 
@@ -263,25 +261,12 @@ namespace ClipHoard
 			// 
 			this.mainDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.mainDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.mainDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-									this.titleColumn,
-									this.valueColumn});
 			this.mainTableLayoutPanel.SetColumnSpan(this.mainDataGridView, 2);
 			this.mainDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainDataGridView.Location = new System.Drawing.Point(3, 68);
 			this.mainDataGridView.Name = "mainDataGridView";
 			this.mainDataGridView.Size = new System.Drawing.Size(335, 264);
 			this.mainDataGridView.TabIndex = 50;
-			// 
-			// titleColumn
-			// 
-			this.titleColumn.HeaderText = "Title";
-			this.titleColumn.Name = "titleColumn";
-			// 
-			// valueColumn
-			// 
-			this.valueColumn.HeaderText = "Value";
-			this.valueColumn.Name = "valueColumn";
 			// 
 			// mainTableLayoutPanel
 			// 
@@ -423,8 +408,6 @@ namespace ClipHoard
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Label hotkeyCombinationLabel;
 		private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
-		private System.Windows.Forms.DataGridViewTextBoxColumn valueColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn titleColumn;
 		private System.Windows.Forms.DataGridView mainDataGridView;
 		private System.Windows.Forms.ToolStripStatusLabel copiedCountToolStripStatusLabel;
 		private System.Windows.Forms.ToolStripStatusLabel copiedItemsToolStripStatusLabel;

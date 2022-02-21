@@ -8,6 +8,7 @@ namespace ClipHoard
     // Directives
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Drawing;
     using System.IO;
     using System.Reflection;
@@ -36,6 +37,11 @@ namespace ClipHoard
         /// The settings data path.
         /// </summary>
         private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
+
+        /// <summary>
+        /// The data table.
+        /// </summary>
+        private DataTable dataTable = new DataTable();
 
         /// <summary>
         /// Registers the hot key.
@@ -106,11 +112,44 @@ namespace ClipHoard
             if (!File.Exists(this.settingsDataPath))
             {
                 // Create new settings file
-                //#this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+                this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
             }
 
             // Load settings from disk
-            //#this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+            this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+
+            // The title data column
+            DataColumn titleDataColumn = new DataColumn
+            {
+                ColumnName = "Title",
+                DataType = typeof(string)
+            };
+
+            // The value data column
+            DataColumn valueDataColumn = new DataColumn
+            {
+                ColumnName = "Value",
+                DataType = typeof(string)
+            };
+
+            // TODO Add colums [Can be added by AddRange]
+            this.dataTable.Columns.Add(titleDataColumn);
+            this.dataTable.Columns.Add(valueDataColumn);
+
+            // Set data source
+            this.mainDataGridView.DataSource = dataTable;
+
+            // Dynamic row count event handlers
+            this.mainDataGridView.RowsAdded += (sender, args) => UpdateRowCount();
+            this.mainDataGridView.RowsRemoved += (sender, args) => UpdateRowCount();
+        }
+
+        /// <summary>
+        /// Updates the row count.
+        /// </summary>
+        private void UpdateRowCount()
+        {
+            this.itemsCountToolStripStatusLabel.Text = this.mainDataGridView.RowCount.ToString();
         }
 
         /// <summary>
@@ -139,16 +178,6 @@ namespace ClipHoard
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the exit tool strip menu item1 click.
-        /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnExitToolStripMenuItem1Click(object sender, EventArgs e)
         {
             // TODO Add code
         }
@@ -265,6 +294,16 @@ namespace ClipHoard
                 // Advise user
                 MessageBox.Show($"Error saving settings file.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{exception.Message}", "File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Handles the exit tool strip menu item1 click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnExitToolStripMenuItem1Click(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
     }
 }
