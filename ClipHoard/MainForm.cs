@@ -89,6 +89,22 @@ namespace ClipHoard
         private static int WM_HOTKEY = 0x0312;
 
         /// <summary>
+        /// Gets or sets the copied count tool strip status label text.
+        /// </summary>
+        /// <value>The copied count tool strip status label text.</value>
+        public string CopiedCountToolStripStatusLabelText
+        {
+            get
+            {
+                return this.copiedCountToolStripStatusLabel.Text;
+            }
+            set
+            {
+                this.copiedCountToolStripStatusLabel.Text = value;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ClipHoard.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -174,7 +190,7 @@ namespace ClipHoard
                 }
 
                 // Set popup form
-                this.popupForm = new PopupForm(this.dataTable, this.closePopupOnSelectToolStripMenuItem.Checked)
+                this.popupForm = new PopupForm(this.dataTable, this.closePopupAfterSelectionToolStripMenuItem.Checked)
                 {
                     // Set properties
                     TopMost = true,
@@ -192,7 +208,7 @@ namespace ClipHoard
                 }
 
                 // Show popup
-                this.popupForm.Show();
+                this.popupForm.Show(this);
             }
         }
 

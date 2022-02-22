@@ -55,7 +55,12 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnPopupListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Copy selecion to clipboard
+            Clipboard.Clear();
+            Clipboard.SetText(this.dataTable.Rows[this.popupListBox.SelectedIndex][1].ToString());
+
+            // Update count
+            ((MainForm)this.Owner).CopiedCountToolStripStatusLabelText = (Convert.ToInt32(((MainForm)this.Owner).CopiedCountToolStripStatusLabelText) + 1).ToString();
         }
     }
 }

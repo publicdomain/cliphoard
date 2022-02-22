@@ -35,7 +35,9 @@ namespace ClipHoard
 			// popupListBox
 			// 
 			this.popupListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.popupListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.popupListBox.FormattingEnabled = true;
+			this.popupListBox.ItemHeight = 16;
 			this.popupListBox.Location = new System.Drawing.Point(0, 0);
 			this.popupListBox.Name = "popupListBox";
 			this.popupListBox.Size = new System.Drawing.Size(227, 262);
@@ -48,7 +50,6 @@ namespace ClipHoard
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(227, 262);
 			this.Controls.Add(this.popupListBox);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "PopupForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "ClipHoard Popup";
