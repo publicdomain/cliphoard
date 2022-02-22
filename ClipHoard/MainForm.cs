@@ -153,6 +153,24 @@ namespace ClipHoard
         }
 
         /// <summary>
+        /// Windows the proc.
+        /// </summary>
+        /// <param name="m">M.</param>
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_HOTKEY)
+            {
+                // Set popup
+                var popup = new PopupForm(this.dataTable);
+
+                // Show popup
+                popup.Show();
+            }
+        }
+
+        /// <summary>
         /// Handles the new tool strip menu item1 click.
         /// </summary>
         /// <param name="sender">Sender object.</param>

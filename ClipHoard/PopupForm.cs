@@ -7,6 +7,7 @@ namespace ClipHoard
 {
     // Directives
     using System;
+    using System.Data;
     using System.Drawing;
     using System.Windows.Forms;
 
@@ -16,12 +17,27 @@ namespace ClipHoard
     public partial class PopupForm : Form
     {
         /// <summary>
+        /// The data table.
+        /// </summary>
+        private DataTable dataTable = null;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ClipHoard.PopupForm"/> class.
         /// </summary>
-        public PopupForm()
+        /// <param name="hoardDataTable">Hoard data table.</param>
+        public PopupForm(DataTable hoardDataTable)
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            // Set datatable
+            this.dataTable = hoardDataTable;
+
+            // Populate list
+            for (int i = 0; i < hoardDataTable.Rows.Count; i++)
+            {
+                this.popupListBox.Items.Add(hoardDataTable.Rows[i][0]);
+            }
         }
 
         /// <summary>
