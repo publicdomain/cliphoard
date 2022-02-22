@@ -261,7 +261,10 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItem1Click(object sender, EventArgs e)
         {
-            // TODO Add code
+            // TODO New list [Can extend to ask user if a total settings data reset must be performed]
+
+            // Clear data table rows
+            this.dataTable.Rows.Clear();
         }
 
         /// <summary>
