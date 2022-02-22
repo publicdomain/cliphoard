@@ -159,9 +159,6 @@ namespace ClipHoard
             this.dataTable.Columns.Add(titleDataColumn);
             this.dataTable.Columns.Add(valueDataColumn);
 
-            // Set data source
-            this.mainDataGridView.DataSource = dataTable;
-
             // Dynamic row count event handlers
             this.mainDataGridView.RowsAdded += (sender, args) => UpdateRowCount();
             this.mainDataGridView.RowsRemoved += (sender, args) => UpdateRowCount();
@@ -354,7 +351,14 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnMainFormLoad(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Load settings data to GUI
+            this.SettingsDataToGui();
+
+            // Set data grid view data source
+            this.mainDataGridView.DataSource = dataTable;
+
+            // Hack Topmost on start [DEBUG]
+            this.TopMost = this.settingsData.TopMost;
         }
 
         /// <summary>
