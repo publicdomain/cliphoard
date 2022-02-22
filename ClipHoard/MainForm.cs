@@ -16,6 +16,7 @@ namespace ClipHoard
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
     using PublicDomain;
 
     /// <summary>
@@ -364,6 +365,28 @@ namespace ClipHoard
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// GUIs to settings sata.
+        /// </summary>
+        private void GuiToSettingsSata()
+        {
+            // Options
+            this.settingsData.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+            this.settingsData.OpenPopupOnCursorLocation = this.openPopupOnCursorLocationToolStripMenuItem.Checked;
+            this.settingsData.ClosePopupOnSelection = this.closePopupAfterSelectionToolStripMenuItem.Checked;
+
+            // Modifier checkboxes
+            this.settingsData.Control = this.controlCheckBox.Checked;
+            this.settingsData.Alt = this.altCheckBox.Checked;
+            this.settingsData.Shift = this.shiftCheckBox.Checked;
+
+            // Hotkey
+            this.settingsData.Hotkey = this.keyComboBox.SelectedItem.ToString();
+
+            // Data table items
+            this.settingsData.SavedItems = JsonConvert.SerializeObject(this.dataTable);
         }
 
         /// <summary>

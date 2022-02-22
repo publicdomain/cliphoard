@@ -8,6 +8,7 @@ namespace PublicDomain
 {
     // Directives
     using System.Collections.Generic;
+    using System.Data;
     using System.Drawing;
 
     /// <summary>
@@ -51,5 +52,23 @@ namespace PublicDomain
         /// </summary>
         /// <value>The hotkey.</value>
         public string Hotkey { get; set; } = "None";
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> open popup on cursor location.
+        /// </summary>
+        /// <value><c>true</c> if open popup on cursor location; otherwise, <c>false</c>.</value>
+        public bool OpenPopupOnCursorLocation { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> close popup on selection.
+        /// </summary>
+        /// <value><c>true</c> if close popup on selection; otherwise, <c>false</c>.</value>
+        public bool ClosePopupOnSelection { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the saved items.
+        /// </summary>
+        /// <value>The saved items.</value>
+        public string SavedItems { get; set; } = string.Empty;
     }
 }
