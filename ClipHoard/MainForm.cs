@@ -44,6 +44,11 @@ namespace ClipHoard
         private DataTable dataTable = new DataTable();
 
         /// <summary>
+        /// The popup form.
+        /// </summary>
+        private PopupForm popupForm = null;
+
+        /// <summary>
         /// Registers the hot key.
         /// </summary>
         /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
@@ -162,11 +167,32 @@ namespace ClipHoard
 
             if (m.Msg == WM_HOTKEY)
             {
-                // Set popup
-                var popup = new PopupForm(this.dataTable);
+                // Close previous
+                if (this.popupForm != null)
+                {
+                    this.popupForm.Close();
+                }
+
+                // Set popup form
+                this.popupForm = new PopupForm(this.dataTable, this.closePopupOnSelectToolStripMenuItem.Checked)
+                {
+                    // Set properties
+                    TopMost = true,
+                    Icon = this.Icon
+                };
+
+                // Set popup location
+                if (this.openPopupOnCursorLocationToolStripMenuItem.Checked)
+                {
+                    this.popupForm.Location = Cursor.Position;
+                }
+                else
+                {
+                    this.popupForm.StartPosition = FormStartPosition.CenterScreen;
+                }
 
                 // Show popup
-                popup.Show();
+                this.popupForm.Show();
             }
         }
 
@@ -177,7 +203,8 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnHotkeyUpdated(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Update the hotkey combination
+            this.UpdateHotkey();
         }
 
         /// <summary>
@@ -186,7 +213,7 @@ namespace ClipHoard
         private void UpdateHotkey()
         {
             // Only update if there's -at least- a valid key
-            if ((this.keyComboBox.SelectedIndex > -1 && this.keyComboBox.SelectedItem.ToString() != "None"))
+            if ((this.keyComboBox.SelectedIndex > -1 && this.keyComboBox.SelectedItem.ToString().ToLowerInvariant() != "none"))
             {
                 // Try to unregister the key
                 try
