@@ -394,6 +394,31 @@ namespace ClipHoard
         }
 
         /// <summary>
+        /// Settingses the data to GUI.
+        /// </summary>
+        private void SettingsDataToGui()
+        {
+            // Options
+            this.alwaysOnTopToolStripMenuItem.Checked = this.settingsData.TopMost;
+            this.openPopupOnCursorLocationToolStripMenuItem.Checked = this.settingsData.OpenPopupOnCursorLocation;
+            this.closePopupAfterSelectionToolStripMenuItem.Checked = this.settingsData.ClosePopupOnSelection;
+
+            // Modifier checkboxes
+            this.controlCheckBox.Checked = this.settingsData.Control;
+            this.altCheckBox.Checked = this.settingsData.Alt;
+            this.shiftCheckBox.Checked = this.settingsData.Shift;
+
+            // Hotkey
+            if (this.settingsData.Hotkey.Length > 0)
+            {
+                this.keyComboBox.SelectedItem = this.settingsData.Hotkey;
+            }
+
+            // Data table items
+            this.dataTable = JsonConvert.DeserializeObject<DataTable>(this.settingsData.SavedItems); ;
+        }
+
+        /// <summary>
         /// Loads the settings file.
         /// </summary>
         /// <returns>The settings file.</returns>
