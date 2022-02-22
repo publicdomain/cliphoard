@@ -303,7 +303,29 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Set t save file dialog properties
+            this.saveFileDialog.FileName = string.Empty;
+            this.saveFileDialog.DefaultExt = "txt";
+            this.saveFileDialog.Filter = "TXT Files|*.txt|All files (*.*)|*.*";
+            this.saveFileDialog.Title = "Save ClipHoard items file";
+
+            // Open save file dialog
+            if (this.saveFileDialog.ShowDialog() == DialogResult.OK && this.saveFileDialog.FileName.Length > 0)
+            {
+                try
+                {
+                    // Save items to disk
+                    File.WriteAllText(this.saveFileDialog.FileName, JsonConvert.SerializeObject(this.dataTable));
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when saving to \"{Path.GetFileName(this.saveFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Save file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Inform user
+                MessageBox.Show($"Saved current items data to \"{Path.GetFileName(this.saveFileDialog.FileName)}\"", "Items file saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         /// <summary>
