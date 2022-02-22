@@ -171,6 +171,48 @@ namespace ClipHoard
         }
 
         /// <summary>
+        /// Handles the hotkey updated event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnHotkeyUpdated(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Updates the hotkey.
+        /// </summary>
+        private void UpdateHotkey()
+        {
+            // Only update if there's -at least- a valid key
+            if ((this.keyComboBox.SelectedIndex > -1 && this.keyComboBox.SelectedItem.ToString() != "None"))
+            {
+                // Try to unregister the key
+                try
+                {
+                    // Unregister the hotkey
+                    UnregisterHotKey(this.Handle, 0);
+                }
+                catch
+                {
+                    // Let it fall through
+                }
+
+                // Try to register the key
+                try
+                {
+                    // Register the hotkey
+                    RegisterHotKey(this.Handle, 0, (this.controlCheckBox.Checked ? MOD_CONTROL : 0) + (this.altCheckBox.Checked ? MOD_ALT : 0) + (this.shiftCheckBox.Checked ? MOD_SHIFT : 0), Convert.ToInt16((Keys)Enum.Parse(typeof(Keys), this.keyComboBox.SelectedItem.ToString(), true)));
+                }
+                catch
+                {
+                    // Let it fall through
+                }
+            }
+        }
+
+        /// <summary>
         /// Handles the new tool strip menu item1 click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
