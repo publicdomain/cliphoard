@@ -43,7 +43,7 @@ namespace ClipHoard
         /// <summary>
         /// The data table.
         /// </summary>
-        private DataTable dataTable = new DataTable();
+        private DataTable dataTable = null;
 
         /// <summary>
         /// The popup form.
@@ -141,6 +141,33 @@ namespace ClipHoard
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
 
+            // Dynamic row count event handlers
+            this.mainDataGridView.RowsAdded += (sender, args) => UpdateRowCount();
+            this.mainDataGridView.RowsRemoved += (sender, args) => UpdateRowCount();
+
+            // Reset data table
+            this.ResetDataTable();
+        }
+
+        /// <summary>
+        /// Updates the row count.
+        /// </summary>
+        private void UpdateRowCount()
+        {
+            this.itemsCountToolStripStatusLabel.Text = this.mainDataGridView.RowCount.ToString();
+        }
+
+        /// <summary>
+        /// News the data table.
+        /// </summary>
+        private void ResetDataTable()
+        {
+            // Remove data source
+            this.mainDataGridView.DataSource = null;
+
+            // New data table
+            this.dataTable = new DataTable();
+
             // The title data column
             DataColumn titleDataColumn = new DataColumn
             {
@@ -159,17 +186,8 @@ namespace ClipHoard
             this.dataTable.Columns.Add(titleDataColumn);
             this.dataTable.Columns.Add(valueDataColumn);
 
-            // Dynamic row count event handlers
-            this.mainDataGridView.RowsAdded += (sender, args) => UpdateRowCount();
-            this.mainDataGridView.RowsRemoved += (sender, args) => UpdateRowCount();
-        }
-
-        /// <summary>
-        /// Updates the row count.
-        /// </summary>
-        private void UpdateRowCount()
-        {
-            this.itemsCountToolStripStatusLabel.Text = this.mainDataGridView.RowCount.ToString();
+            // Set data grid view data source
+            this.mainDataGridView.DataSource = dataTable;
         }
 
         /// <summary>
@@ -261,10 +279,7 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItem1Click(object sender, EventArgs e)
         {
-            // TODO New list [Can extend to ask user if a total settings data reset must be performed]
-
-            // Clear data table rows
-            this.dataTable.Rows.Clear();
+            // TODO Add code
         }
 
         /// <summary>
@@ -444,9 +459,6 @@ namespace ClipHoard
         {
             // Load settings data to GUI
             this.SettingsDataToGui();
-
-            // Set data grid view data source
-            this.mainDataGridView.DataSource = dataTable;
 
             // Hack Topmost on start [DEBUG]
             this.TopMost = this.settingsData.TopMost;
