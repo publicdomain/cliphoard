@@ -128,7 +128,7 @@ namespace ClipHoard
             // Set public domain is tool strip menu item image
             this.freeReleasesPublicDomainisToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
 
-            /* Process setiings */
+            /* Process settings */
 
             // Check for settings file
             if (!File.Exists(this.settingsDataPath))
@@ -140,9 +140,15 @@ namespace ClipHoard
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
 
+            /* DataGridview */
+
             // Dynamic row count event handlers
             this.mainDataGridView.RowsAdded += (sender, args) => UpdateRowCount();
             this.mainDataGridView.RowsRemoved += (sender, args) => UpdateRowCount();
+
+            // Multiline cell
+            this.mainDataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            this.mainDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         /// <summary>
