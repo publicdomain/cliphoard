@@ -297,8 +297,14 @@ namespace ClipHoard
             {
                 try
                 {
+                    // Remove data source
+                    this.mainDataGridView.DataSource = null;
+
                     // Load data table items from disk
                     this.dataTable = JsonConvert.DeserializeObject<DataTable>(File.ReadAllText(this.openFileDialog.FileName));
+
+                    // Set data grid view data source
+                    this.mainDataGridView.DataSource = dataTable;
                 }
                 catch (Exception exception)
                 {
@@ -327,7 +333,7 @@ namespace ClipHoard
                 try
                 {
                     // Save items to disk
-                    File.WriteAllText(this.saveFileDialog.FileName, JsonConvert.SerializeObject(this.dataTable));
+                    File.WriteAllText(this.saveFileDialog.FileName, JsonConvert.SerializeObject(this.dataTable, Formatting.Indented));
                 }
                 catch (Exception exception)
                 {
@@ -458,7 +464,7 @@ namespace ClipHoard
             this.SettingsDataToGui();
 
             // Check for a null data table
-            if (this.dataTable == null)
+            if (this.dataTable == null || this.dataTable.Rows.Count == 0)
             {
                 // Reset data table to create a new one
                 this.ResetDataTable();
@@ -506,7 +512,7 @@ namespace ClipHoard
             this.settingsData.Hotkey = this.keyComboBox.SelectedItem.ToString();
 
             // Data table items
-            this.settingsData.SavedItems = JsonConvert.SerializeObject(this.dataTable);
+            this.settingsData.SavedItems = JsonConvert.SerializeObject(this.dataTable, Formatting.Indented);
         }
 
         /// <summary>
