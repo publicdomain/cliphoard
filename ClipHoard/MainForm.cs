@@ -279,7 +279,8 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItem1Click(object sender, EventArgs e)
         {
-            // TODO Add code
+            // New data table
+            this.ResetDataTable();
         }
 
         /// <summary>
