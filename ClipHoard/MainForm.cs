@@ -7,7 +7,6 @@ namespace ClipHoard
 {
     // Directives
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics;
     using System.Drawing;
@@ -144,9 +143,6 @@ namespace ClipHoard
             // Dynamic row count event handlers
             this.mainDataGridView.RowsAdded += (sender, args) => UpdateRowCount();
             this.mainDataGridView.RowsRemoved += (sender, args) => UpdateRowCount();
-
-            // Reset data table
-            this.ResetDataTable();
         }
 
         /// <summary>
@@ -302,7 +298,7 @@ namespace ClipHoard
                 try
                 {
                     // Load data table items from disk
-                    this.dataTable = JsonConvert.DeserializeObject<DataTable>(File.ReadAllText(this.openFileDialog.FileName)); ;
+                    this.dataTable = JsonConvert.DeserializeObject<DataTable>(File.ReadAllText(this.openFileDialog.FileName));
                 }
                 catch (Exception exception)
                 {
@@ -436,7 +432,7 @@ namespace ClipHoard
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: Pareidol{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #54, Week #08 @ February 23, 2022",
+                $"Made for: Pareidol{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #55, Week #08 @ February 24, 2022",
                 licenseText,
                 this.Icon.ToBitmap())
             {
@@ -460,6 +456,18 @@ namespace ClipHoard
         {
             // Load settings data to GUI
             this.SettingsDataToGui();
+
+            // Check for a null data table
+            if (this.dataTable == null)
+            {
+                // Reset data table to create a new one
+                this.ResetDataTable();
+            }
+            else
+            {
+                // Set data grid view data source
+                this.mainDataGridView.DataSource = dataTable;
+            }
 
             // Hack Topmost on start [DEBUG]
             this.TopMost = this.settingsData.TopMost;
@@ -523,7 +531,7 @@ namespace ClipHoard
             }
 
             // Data table items
-            this.dataTable = JsonConvert.DeserializeObject<DataTable>(this.settingsData.SavedItems); ;
+            this.dataTable = JsonConvert.DeserializeObject<DataTable>(this.settingsData.SavedItems);
         }
 
         /// <summary>

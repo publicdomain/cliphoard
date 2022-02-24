@@ -33,7 +33,7 @@ namespace PublicDomain
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomainWeekly.SettingsData"/> is control.
         /// </summary>
         /// <value><c>true</c> if control; otherwise, <c>false</c>.</value>
-        public bool Control { get; set; } = false;
+        public bool Control { get; set; } = true;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomainWeekly.SettingsData"/> is alternate.
@@ -51,7 +51,7 @@ namespace PublicDomain
         /// Gets or sets the hotkey.
         /// </summary>
         /// <value>The hotkey.</value>
-        public string Hotkey { get; set; } = "None";
+        public string Hotkey { get; set; } = "H";
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> open popup on cursor location.

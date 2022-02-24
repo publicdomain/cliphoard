@@ -61,6 +61,12 @@ namespace ClipHoard
 
             // Update count
             ((MainForm)this.Owner).CopiedCountToolStripStatusLabelText = (Convert.ToInt32(((MainForm)this.Owner).CopiedCountToolStripStatusLabelText) + 1).ToString();
+
+            // Close on selection
+            if (this.closeOnSelect)
+            {
+                this.Close();
+            }
         }
     }
 }
