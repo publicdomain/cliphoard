@@ -70,5 +70,10 @@ namespace PublicDomain
         /// </summary>
         /// <value>The saved items.</value>
         public string SavedItems { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The auto paste delay.
+        /// </summary>
+        public int AutoPasteDelay = 1000;
     }
 }

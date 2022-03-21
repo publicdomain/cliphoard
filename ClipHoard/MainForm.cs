@@ -128,6 +128,9 @@ namespace ClipHoard
             // Set public domain is tool strip menu item image
             this.freeReleasesPublicDomainisToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
 
+            // Notify icon
+            this.notifyIcon.Icon = this.associatedIcon;
+
             /* Process settings */
 
             // Check for settings file
@@ -149,6 +152,15 @@ namespace ClipHoard
             // Multiline cell
             this.mainDataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             this.mainDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
+        /// <summary>
+        /// Handles the handle created.
+        /// </summary>
+        /// <param name="e">Event arguments.</param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            // TODO Add code
         }
 
         /// <summary>
@@ -400,6 +412,36 @@ namespace ClipHoard
         {
             // Open GitHub repository
             Process.Start("https://github.com/publicdomain/cliphoard");
+        }
+
+        /// <summary>
+        /// Handles the show tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the autopaste delay tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnAutopasteDelayToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the notify icon click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnNotifyIconClick(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
 
         /// <summary>

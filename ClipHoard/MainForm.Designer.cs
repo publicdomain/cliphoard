@@ -31,6 +31,7 @@ namespace ClipHoard
         /// </summary>
         private void InitializeComponent()
         {
+        	this.components = new System.ComponentModel.Container();
         	System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         	this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
         	this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,9 +41,13 @@ namespace ClipHoard
         	this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
         	this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.autopasteDelayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.openPopupOnCursorLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.closePopupAfterSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.freeReleasesPublicDomainisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,19 +70,23 @@ namespace ClipHoard
         	this.commandArgumentLabel = new System.Windows.Forms.Label();
         	this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
         	this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-        	this.closePopupAfterSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+        	this.notifyIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+        	this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainMenuStrip.SuspendLayout();
         	this.mainStatusStrip.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.mainDataGridView)).BeginInit();
         	this.mainTableLayoutPanel.SuspendLayout();
         	this.tableLayoutPanel1.SuspendLayout();
+        	this.notifyIconContextMenuStrip.SuspendLayout();
         	this.SuspendLayout();
         	// 
         	// mainMenuStrip
         	// 
         	this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.fileToolStripMenuItem1,
-        	        	        	this.optionsToolStripMenuItem,
+        	        	        	this.toolsToolStripMenuItem,
         	        	        	this.helpToolStripMenuItem});
         	this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
         	this.mainMenuStrip.Name = "mainMenuStrip";
@@ -144,6 +153,30 @@ namespace ClipHoard
         	this.exitToolStripMenuItem1.Text = "E&xit";
         	this.exitToolStripMenuItem1.Click += new System.EventHandler(this.OnExitToolStripMenuItem1Click);
         	// 
+        	// toolsToolStripMenuItem
+        	// 
+        	this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.settingsToolStripMenuItem,
+        	        	        	this.optionsToolStripMenuItem});
+        	this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+        	this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+        	this.toolsToolStripMenuItem.Text = "&Tools";
+        	// 
+        	// settingsToolStripMenuItem
+        	// 
+        	this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.autopasteDelayToolStripMenuItem});
+        	this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+        	this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+        	this.settingsToolStripMenuItem.Text = "&Settings";
+        	// 
+        	// autopasteDelayToolStripMenuItem
+        	// 
+        	this.autopasteDelayToolStripMenuItem.Name = "autopasteDelayToolStripMenuItem";
+        	this.autopasteDelayToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+        	this.autopasteDelayToolStripMenuItem.Text = "&Auto-paste delay";
+        	this.autopasteDelayToolStripMenuItem.Click += new System.EventHandler(this.OnAutopasteDelayToolStripMenuItemClick);
+        	// 
         	// optionsToolStripMenuItem
         	// 
         	this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -151,7 +184,7 @@ namespace ClipHoard
         	        	        	this.openPopupOnCursorLocationToolStripMenuItem,
         	        	        	this.closePopupAfterSelectionToolStripMenuItem});
         	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-        	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+        	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
         	this.optionsToolStripMenuItem.Text = "&Options";
         	this.optionsToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnOptionsToolStripMenuItemDropDownItemClicked);
         	// 
@@ -166,6 +199,12 @@ namespace ClipHoard
         	this.openPopupOnCursorLocationToolStripMenuItem.Name = "openPopupOnCursorLocationToolStripMenuItem";
         	this.openPopupOnCursorLocationToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
         	this.openPopupOnCursorLocationToolStripMenuItem.Text = "&Open popup on cursor location";
+        	// 
+        	// closePopupAfterSelectionToolStripMenuItem
+        	// 
+        	this.closePopupAfterSelectionToolStripMenuItem.Name = "closePopupAfterSelectionToolStripMenuItem";
+        	this.closePopupAfterSelectionToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+        	this.closePopupAfterSelectionToolStripMenuItem.Text = "&Close popup after selection";
         	// 
         	// helpToolStripMenuItem
         	// 
@@ -372,11 +411,33 @@ namespace ClipHoard
         	this.commandArgumentLabel.Text = "&Popup form items:";
         	this.commandArgumentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
         	// 
-        	// closePopupAfterSelectionToolStripMenuItem
+        	// notifyIcon
         	// 
-        	this.closePopupAfterSelectionToolStripMenuItem.Name = "closePopupAfterSelectionToolStripMenuItem";
-        	this.closePopupAfterSelectionToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-        	this.closePopupAfterSelectionToolStripMenuItem.Text = "Close popup after selection";
+        	this.notifyIcon.Text = "Click to sho ClipHoard";
+        	this.notifyIcon.Visible = true;
+        	this.notifyIcon.Click += new System.EventHandler(this.OnNotifyIconClick);
+        	// 
+        	// notifyIconContextMenuStrip
+        	// 
+        	this.notifyIconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.showToolStripMenuItem,
+        	        	        	this.exitToolStripMenuItem});
+        	this.notifyIconContextMenuStrip.Name = "notifyIconContextMenuStrip";
+        	this.notifyIconContextMenuStrip.Size = new System.Drawing.Size(104, 48);
+        	// 
+        	// showToolStripMenuItem
+        	// 
+        	this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+        	this.showToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+        	this.showToolStripMenuItem.Text = "&Show";
+        	this.showToolStripMenuItem.Click += new System.EventHandler(this.OnShowToolStripMenuItemClick);
+        	// 
+        	// exitToolStripMenuItem
+        	// 
+        	this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+        	this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+        	this.exitToolStripMenuItem.Text = "&Exit";
+        	this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitToolStripMenuItem1Click);
         	// 
         	// MainForm
         	// 
@@ -399,9 +460,18 @@ namespace ClipHoard
         	((System.ComponentModel.ISupportInitialize)(this.mainDataGridView)).EndInit();
         	this.mainTableLayoutPanel.ResumeLayout(false);
         	this.tableLayoutPanel1.ResumeLayout(false);
+        	this.notifyIconContextMenuStrip.ResumeLayout(false);
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip notifyIconContextMenuStrip;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autopasteDelayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closePopupAfterSelectionToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
@@ -427,7 +497,6 @@ namespace ClipHoard
         private System.Windows.Forms.ToolStripMenuItem freeReleasesPublicDomainisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
