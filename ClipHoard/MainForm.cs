@@ -477,8 +477,23 @@ namespace ClipHoard
             // TODO Add code
         }
 
-
+        /// <summary>
+        /// Handles the minimize tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
         private void OnMinimizeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // Minimize to tray
+            this.SendToSystemTray();
+        }
+
+        /// <summary>
+        /// Handles the notify icon mouse click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnNotifyIconMouseClick(object sender, MouseEventArgs e)
         {
             // TODO Add code
         }
