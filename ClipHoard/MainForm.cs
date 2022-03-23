@@ -302,6 +302,24 @@ namespace ClipHoard
         }
 
         /// <summary>
+        /// Restores the window back from system tray to the foreground.
+        /// </summary>
+        private void RestoreFromSystemTray()
+        {
+            // Make form visible again
+            this.Show();
+
+            // Return window back to normal
+            this.WindowState = FormWindowState.Normal;
+
+            // Restore in task bar
+            this.ShowInTaskbar = true;
+
+            // Hide system tray icon
+            this.notifyIcon.Visible = false;
+        }
+
+        /// <summary>
         /// Handles the new tool strip menu item1 click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
