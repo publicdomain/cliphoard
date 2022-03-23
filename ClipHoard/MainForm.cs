@@ -287,6 +287,21 @@ namespace ClipHoard
         }
 
         /// <summary>
+        /// Sends the program to the system tray.
+        /// </summary>
+        private void SendToSystemTray()
+        {
+            // Hide main form
+            this.Hide();
+
+            // Remove from task bar
+            this.ShowInTaskbar = false;
+
+            // Show notify icon 
+            this.notifyIcon.Visible = true;
+        }
+
+        /// <summary>
         /// Handles the new tool strip menu item1 click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
@@ -440,6 +455,12 @@ namespace ClipHoard
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnNotifyIconClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+
+        private void OnMinimizeToolStripMenuItemClick(object sender, EventArgs e)
         {
             // TODO Add code
         }

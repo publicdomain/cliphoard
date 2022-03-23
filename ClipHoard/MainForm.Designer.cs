@@ -74,6 +74,7 @@ namespace ClipHoard
         	this.notifyIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
         	this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainMenuStrip.SuspendLayout();
         	this.mainStatusStrip.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.mainDataGridView)).BeginInit();
@@ -87,7 +88,8 @@ namespace ClipHoard
         	this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.fileToolStripMenuItem1,
         	        	        	this.toolsToolStripMenuItem,
-        	        	        	this.helpToolStripMenuItem});
+        	        	        	this.helpToolStripMenuItem,
+        	        	        	this.minimizeToolStripMenuItem});
         	this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
         	this.mainMenuStrip.Name = "mainMenuStrip";
         	this.mainMenuStrip.Size = new System.Drawing.Size(341, 24);
@@ -439,6 +441,14 @@ namespace ClipHoard
         	this.exitToolStripMenuItem.Text = "&Exit";
         	this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitToolStripMenuItem1Click);
         	// 
+        	// minimizeToolStripMenuItem
+        	// 
+        	this.minimizeToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+        	this.minimizeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("minimizeToolStripMenuItem.Image")));
+        	this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
+        	this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
+        	this.minimizeToolStripMenuItem.Click += new System.EventHandler(this.MinimizeToolStripMenuItemClick);
+        	// 
         	// MainForm
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,6 +474,7 @@ namespace ClipHoard
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem minimizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip notifyIconContextMenuStrip;
