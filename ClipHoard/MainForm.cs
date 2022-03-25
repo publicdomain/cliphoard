@@ -101,9 +101,6 @@ namespace ClipHoard
             // Set public domain is tool strip menu item image
             this.freeReleasesPublicDomainisToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
 
-            // Notify icon
-            this.notifyIcon.Icon = this.Icon;
-
             /* Process settings */
 
             // Check for settings file
@@ -195,22 +192,19 @@ namespace ClipHoard
         /// <summary>
         /// Sends the program to the system tray.
         /// </summary>
-        private void SendToSystemTray()
+        internal void SendToSystemTray()
         {
             // Hide main form
             this.Hide();
 
             // Remove from task bar
             this.ShowInTaskbar = false;
-
-            // Show notify icon 
-            this.notifyIcon.Visible = true;
         }
 
         /// <summary>
         /// Restores the window back from system tray to the foreground.
         /// </summary>
-        private void RestoreFromSystemTray()
+        internal void RestoreFromSystemTray()
         {
             // Make form visible again
             this.Show();
@@ -220,9 +214,6 @@ namespace ClipHoard
 
             // Restore in task bar
             this.ShowInTaskbar = true;
-
-            // Hide system tray icon
-            this.notifyIcon.Visible = false;
         }
 
         /// <summary>
@@ -483,7 +474,7 @@ namespace ClipHoard
         }
 
         /// <summary>
-        /// Handles the main form form closing.
+        /// TODO Handles the main form form closing. [May be modified, by FormCLosed]
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -494,6 +485,12 @@ namespace ClipHoard
 
             // Save to disk
             this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
+
+            // To system tray
+            this.SendToSystemTray();
+
+            // Prevent closing
+            e.Cancel = true;
         }
 
         /// <summary>
@@ -587,9 +584,15 @@ namespace ClipHoard
             }
         }
 
+        /// <summary>
+        /// Handles the main form form closed.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosed(object sender, FormClosedEventArgs e)
         {
-
+            // Exit the application
+            // ((HiddenForm)this.Owner).ExitThread();
         }
 
         /// <summary>

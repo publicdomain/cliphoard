@@ -186,11 +186,8 @@ namespace ClipHoard
             // Check for left click
             if (e.Button == MouseButtons.Left)
             {
-                //#
-                MessageBox.Show("Hello!");
-
                 // Restore window 
-                //this.RestoreFromSystemTray();
+                this.mainForm.RestoreFromSystemTray();
             }
         }
 
