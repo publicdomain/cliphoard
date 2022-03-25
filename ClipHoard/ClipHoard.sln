@@ -1,8 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 4.4
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipHoard", "ClipHoard.csproj", "{E9B94181-BA13-4C13-8E52-92F7F445C118}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C51BC397-2EB9-4A36-9B04-C188219F0AB0}"
+	ProjectSection(SolutionItems) = preProject
+		HiddenWindow.cs = HiddenWindow.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

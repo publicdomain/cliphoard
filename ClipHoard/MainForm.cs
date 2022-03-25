@@ -45,51 +45,6 @@ namespace ClipHoard
         private DataTable dataTable = null;
 
         /// <summary>
-        /// The popup form.
-        /// </summary>
-        private PopupForm popupForm = null;
-
-        /// <summary>
-        /// Registers the hot key.
-        /// </summary>
-        /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
-        /// <param name="hWnd">H window.</param>
-        /// <param name="id">Identifier.</param>
-        /// <param name="fsModifiers">Fs modifiers.</param>
-        /// <param name="vk">Vk.</param>
-        [DllImport("User32")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-
-        /// <summary>
-        /// Unregisters the hot key.
-        /// </summary>
-        /// <returns><c>true</c>, if hot key was unregistered, <c>false</c> otherwise.</returns>
-        /// <param name="hWnd">H window.</param>
-        /// <param name="id">Identifier.</param>
-        [DllImport("User32")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
-        /// <summary>
-        /// The mod shift.
-        /// </summary>
-        private const int MOD_SHIFT = 0x4;
-
-        /// <summary>
-        /// The mod control.
-        /// </summary>
-        private const int MOD_CONTROL = 0x2;
-
-        /// <summary>
-        /// The mod alternate.
-        /// </summary>
-        private const int MOD_ALT = 0x1;
-
-        /// <summary>
-        /// The wm hotkey.
-        /// </summary>
-        private static int WM_HOTKEY = 0x0312;
-
-        /// <summary>
         /// Gets or sets the copied count tool strip status label text.
         /// </summary>
         /// <value>The copied count tool strip status label text.</value>
@@ -104,6 +59,24 @@ namespace ClipHoard
                 this.copiedCountToolStripStatusLabel.Text = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the data table.
+        /// </summary>
+        /// <value>The data table.</value>
+        internal DataTable DataTable { get => dataTable; set => dataTable = value; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:ClipHoard.MainForm"/> close popup after selection.
+        /// </summary>
+        /// <value><c>true</c> if close popup after selection; otherwise, <c>false</c>.</value>
+        internal bool ClosePopupAfterSelection { get => this.closePopupAfterSelectionToolStripMenuItem.Checked; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:ClipHoard.MainForm"/> open popup on cursor location.
+        /// </summary>
+        /// <value><c>true</c> if open popup on cursor location; otherwise, <c>false</c>.</value>
+        internal bool OpenPopupOnCursorLocation { get => this.openPopupOnCursorLocationToolStripMenuItem.Checked; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ClipHoard.MainForm"/> class.
@@ -129,7 +102,7 @@ namespace ClipHoard
             this.freeReleasesPublicDomainisToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
 
             // Notify icon
-            this.notifyIcon.Icon = this.associatedIcon;
+            this.notifyIcon.Icon = this.Icon;
 
             /* Process settings */
 
@@ -180,7 +153,7 @@ namespace ClipHoard
             this.mainDataGridView.DataSource = null;
 
             // New data table
-            this.dataTable = new DataTable();
+            this.DataTable = new DataTable();
 
             // The title data column
             DataColumn titleDataColumn = new DataColumn
@@ -197,50 +170,11 @@ namespace ClipHoard
             };
 
             // TODO Add colums [Can be added by AddRange]
-            this.dataTable.Columns.Add(titleDataColumn);
-            this.dataTable.Columns.Add(valueDataColumn);
+            this.DataTable.Columns.Add(titleDataColumn);
+            this.DataTable.Columns.Add(valueDataColumn);
 
             // Set data grid view data source
-            this.mainDataGridView.DataSource = dataTable;
-        }
-
-        /// <summary>
-        /// Windows the proc.
-        /// </summary>
-        /// <param name="m">M.</param>
-        protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);
-
-            if (m.Msg == WM_HOTKEY)
-            {
-                // Close previous
-                if (this.popupForm != null)
-                {
-                    this.popupForm.Close();
-                }
-
-                // Set popup form
-                this.popupForm = new PopupForm(this.dataTable, this.closePopupAfterSelectionToolStripMenuItem.Checked)
-                {
-                    // Set properties
-                    TopMost = true,
-                    Icon = this.Icon
-                };
-
-                // Set popup location
-                if (this.openPopupOnCursorLocationToolStripMenuItem.Checked)
-                {
-                    this.popupForm.Location = Cursor.Position;
-                }
-                else
-                {
-                    this.popupForm.StartPosition = FormStartPosition.CenterScreen;
-                }
-
-                // Show popup
-                this.popupForm.Show(this);
-            }
+            this.mainDataGridView.DataSource = DataTable;
         }
 
         /// <summary>
@@ -248,41 +182,13 @@ namespace ClipHoard
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnHotkeyUpdated(object sender, EventArgs e)
-        {
-            // Update the hotkey combination
-            this.UpdateHotkey();
-        }
-
-        /// <summary>
-        /// Updates the hotkey.
-        /// </summary>
-        private void UpdateHotkey()
+        internal void OnHotkeyUpdated(object sender, EventArgs e)
         {
             // Only update if there's -at least- a valid key
             if ((this.keyComboBox.SelectedIndex > -1 && this.keyComboBox.SelectedItem.ToString().ToLowerInvariant() != "none"))
             {
-                // Try to unregister the key
-                try
-                {
-                    // Unregister the hotkey
-                    UnregisterHotKey(this.Handle, 0);
-                }
-                catch
-                {
-                    // Let it fall through
-                }
-
-                // Try to register the key
-                try
-                {
-                    // Register the hotkey
-                    RegisterHotKey(this.Handle, 0, (this.controlCheckBox.Checked ? MOD_CONTROL : 0) + (this.altCheckBox.Checked ? MOD_ALT : 0) + (this.shiftCheckBox.Checked ? MOD_SHIFT : 0), Convert.ToInt16((Keys)Enum.Parse(typeof(Keys), this.keyComboBox.SelectedItem.ToString(), true)));
-                }
-                catch
-                {
-                    // Let it fall through
-                }
+                // Update the hotkey combination
+                ((HiddenForm)this.Owner).UpdateHotkey(this.controlCheckBox.Checked, this.altCheckBox.Checked, this.shiftCheckBox.Checked, this.keyComboBox.SelectedItem.ToString());
             }
         }
 
@@ -352,10 +258,10 @@ namespace ClipHoard
                     this.mainDataGridView.DataSource = null;
 
                     // Load data table items from disk
-                    this.dataTable = JsonConvert.DeserializeObject<DataTable>(File.ReadAllText(this.openFileDialog.FileName));
+                    this.DataTable = JsonConvert.DeserializeObject<DataTable>(File.ReadAllText(this.openFileDialog.FileName));
 
                     // Set data grid view data source
-                    this.mainDataGridView.DataSource = dataTable;
+                    this.mainDataGridView.DataSource = DataTable;
                 }
                 catch (Exception exception)
                 {
@@ -384,7 +290,7 @@ namespace ClipHoard
                 try
                 {
                     // Save items to disk
-                    File.WriteAllText(this.saveFileDialog.FileName, JsonConvert.SerializeObject(this.dataTable, Formatting.Indented));
+                    File.WriteAllText(this.saveFileDialog.FileName, JsonConvert.SerializeObject(this.DataTable, Formatting.Indented));
                 }
                 catch (Exception exception)
                 {
@@ -468,16 +374,6 @@ namespace ClipHoard
         }
 
         /// <summary>
-        /// Handles the notify icon click.
-        /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnNotifyIconClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
         /// Handles the minimize tool strip menu item click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
@@ -495,7 +391,12 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnNotifyIconMouseClick(object sender, MouseEventArgs e)
         {
-            // TODO Add code
+            // Check for left click
+            if (e.Button == MouseButtons.Left)
+            {
+                // Restore window 
+                this.RestoreFromSystemTray();
+            }
         }
 
         /// <summary>
@@ -566,7 +467,7 @@ namespace ClipHoard
             this.SettingsDataToGui();
 
             // Check for a null data table
-            if (this.dataTable == null || this.dataTable.Rows.Count == 0)
+            if (this.DataTable == null || this.DataTable.Rows.Count == 0)
             {
                 // Reset data table to create a new one
                 this.ResetDataTable();
@@ -574,7 +475,7 @@ namespace ClipHoard
             else
             {
                 // Set data grid view data source
-                this.mainDataGridView.DataSource = dataTable;
+                this.mainDataGridView.DataSource = DataTable;
             }
 
             // Hack Topmost on start [DEBUG]
@@ -614,7 +515,7 @@ namespace ClipHoard
             this.settingsData.Hotkey = this.keyComboBox.SelectedItem.ToString();
 
             // Data table items
-            this.settingsData.SavedItems = JsonConvert.SerializeObject(this.dataTable, Formatting.Indented);
+            this.settingsData.SavedItems = JsonConvert.SerializeObject(this.DataTable, Formatting.Indented);
         }
 
         /// <summary>
@@ -639,7 +540,7 @@ namespace ClipHoard
             }
 
             // Data table items
-            this.dataTable = JsonConvert.DeserializeObject<DataTable>(this.settingsData.SavedItems);
+            this.DataTable = JsonConvert.DeserializeObject<DataTable>(this.settingsData.SavedItems);
         }
 
         /// <summary>
@@ -684,6 +585,11 @@ namespace ClipHoard
                 // Advise user
                 MessageBox.Show($"Error saving settings file.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{exception.Message}", "File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void OnMainFormFormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
 
         /// <summary>
