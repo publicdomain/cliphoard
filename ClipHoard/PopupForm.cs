@@ -60,7 +60,7 @@ namespace ClipHoard
             Clipboard.SetText(this.dataTable.Rows[this.popupListBox.SelectedIndex][1].ToString());
 
             // Update count
-            ((MainForm)this.Owner).CopiedCountToolStripStatusLabelText = (Convert.ToInt32(((MainForm)this.Owner).CopiedCountToolStripStatusLabelText) + 1).ToString();
+            ((HiddenForm)this.Owner).mainForm.CopiedCountToolStripStatusLabelText = (Convert.ToInt32(((HiddenForm)this.Owner).mainForm.CopiedCountToolStripStatusLabelText) + 1).ToString();
 
             // Close on selection
             if (this.closeOnSelect)

@@ -351,7 +351,8 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Restore
+            this.RestoreFromSystemTray();
         }
 
         /// <summary>
@@ -373,21 +374,6 @@ namespace ClipHoard
         {
             // Minimize to tray
             this.SendToSystemTray();
-        }
-
-        /// <summary>
-        /// Handles the notify icon mouse click.
-        /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnNotifyIconMouseClick(object sender, MouseEventArgs e)
-        {
-            // Check for left click
-            if (e.Button == MouseButtons.Left)
-            {
-                // Restore window 
-                this.RestoreFromSystemTray();
-            }
         }
 
         /// <summary>
@@ -485,12 +471,6 @@ namespace ClipHoard
 
             // Save to disk
             this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
-
-            // To system tray
-            this.SendToSystemTray();
-
-            // Prevent closing
-            e.Cancel = true;
         }
 
         /// <summary>
@@ -592,7 +572,7 @@ namespace ClipHoard
         private void OnMainFormFormClosed(object sender, FormClosedEventArgs e)
         {
             // Exit the application
-            // ((HiddenForm)this.Owner).ExitThread();
+            ((HiddenForm)this.Owner).ExitThread();
         }
 
         /// <summary>

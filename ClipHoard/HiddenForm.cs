@@ -60,7 +60,7 @@ namespace ClipHoard
         /// <summary>
         /// The main form.
         /// </summary>
-        private MainForm mainForm = null;
+        internal MainForm mainForm = null;
 
         /// <summary>
         /// The notify icon.
@@ -108,14 +108,6 @@ namespace ClipHoard
 
             /* notifyIcon */
 
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon
-            {
-                Text = "Click to show ClipHoard",
-                Icon = this.mainForm.Icon,
-                ContextMenuStrip = this.notifyIconContextMenuStrip,
-                Visible = true
-            };
-
             this.notifyIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,6 +135,16 @@ namespace ClipHoard
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitToolStripMenuItemClick);
 
+            // Set the notify icon
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon
+            {
+                Text = "Click to show ClipHoard",
+                Icon = this.mainForm.Icon,
+                ContextMenuStrip = this.notifyIconContextMenuStrip,
+                Visible = true
+            };
+
+            // NOtify icon event handlers
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnNotifyIconMouseClick);
         }
 
@@ -153,7 +155,8 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Restore window 
+            this.mainForm.RestoreFromSystemTray();
         }
 
         /// <summary>
@@ -212,7 +215,7 @@ namespace ClipHoard
                 {
                     // Set properties
                     TopMost = true,
-                    Icon = this.Icon
+                    Icon = this.mainForm.Icon
                 };
 
                 // Set popup location
