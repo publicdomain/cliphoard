@@ -15,6 +15,7 @@ namespace ClipHoard
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Xml.Serialization;
+    using Microsoft.VisualBasic;
     using Newtonsoft.Json;
     using PublicDomain;
 
@@ -77,6 +78,12 @@ namespace ClipHoard
         /// </summary>
         /// <value><c>true</c> if open popup on cursor location; otherwise, <c>false</c>.</value>
         internal bool OpenPopupOnCursorLocation { get => this.openPopupOnCursorLocationToolStripMenuItem.Checked; }
+
+        /// <summary>
+        /// Gets the auto paste delay.
+        /// </summary>
+        /// <value>The auto paste delay.</value>
+        internal int AutoPasteDelay { get => this.settingsData.AutoPasteDelay; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ClipHoard.MainForm"/> class.
@@ -362,7 +369,16 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnAutopasteDelayToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Get new delay from user
+            string newDelay = Interaction.InputBox("Set auto-paste delay:", "Delay", this.settingsData.AutoPasteDelay.ToString());
+
+            // Try to covert to int
+
+            if (int.TryParse(newDelay, out int delay) && this.settingsData.AutoPasteDelay != delay)
+            {
+                // Set
+                this.settingsData.AutoPasteDelay = delay;
+            }
         }
 
         /// <summary>

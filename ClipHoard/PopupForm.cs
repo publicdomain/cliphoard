@@ -41,7 +41,7 @@ namespace ClipHoard
         }
 
         /// <summary>
-        /// TODO Handles the popup list box selected index changed. [Can improve the hidden form castings]
+        /// TODO Handles the popup list box selected index changed. [Can improve on the hidden form castings...]
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -55,7 +55,7 @@ namespace ClipHoard
             ((HiddenForm)this.Owner).mainForm.CopiedCountToolStripStatusLabelText = (Convert.ToInt32(((HiddenForm)this.Owner).mainForm.CopiedCountToolStripStatusLabelText) + 1).ToString();
 
             // Paste
-            ((HiddenForm)this.Owner).PasteAsync(1000, ((HiddenForm)this.Owner).mainForm.ClosePopupAfterSelection);
+            ((HiddenForm)this.Owner).PasteAsync(((HiddenForm)this.Owner).mainForm.AutoPasteDelay, ((HiddenForm)this.Owner).mainForm.ClosePopupAfterSelection);
 
             // Close on selection
             if (((HiddenForm)this.Owner).mainForm.ClosePopupAfterSelection)
