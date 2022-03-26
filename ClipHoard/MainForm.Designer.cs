@@ -164,7 +164,7 @@ namespace ClipHoard
         	this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.autopasteDelayToolStripMenuItem});
         	this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-        	this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+        	this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.settingsToolStripMenuItem.Text = "&Settings";
         	// 
         	// autopasteDelayToolStripMenuItem
@@ -182,7 +182,7 @@ namespace ClipHoard
         	        	        	this.openPopupOnCursorLocationToolStripMenuItem,
         	        	        	this.startAtLogonToolStripMenuItem});
         	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-        	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+        	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.optionsToolStripMenuItem.Text = "&Options";
         	this.optionsToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnOptionsToolStripMenuItemDropDownItemClicked);
         	// 
@@ -209,6 +209,7 @@ namespace ClipHoard
         	this.startAtLogonToolStripMenuItem.Name = "startAtLogonToolStripMenuItem";
         	this.startAtLogonToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
         	this.startAtLogonToolStripMenuItem.Text = "&Start at logon";
+        	this.startAtLogonToolStripMenuItem.Visible = false;
         	// 
         	// helpToolStripMenuItem
         	// 

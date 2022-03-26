@@ -11,11 +11,13 @@ namespace ClipHoard
     using System.Diagnostics;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Xml.Serialization;
     using Microsoft.VisualBasic;
+    using Microsoft.Win32;
     using Newtonsoft.Json;
     using PublicDomain;
 
@@ -316,6 +318,34 @@ namespace ClipHoard
 
             // Set topmost by check box
             this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+
+            // Start on logon
+            if (toolStripMenuItem.Name == "startAtLogonToolStripMenuItem")
+            {
+                try
+                {
+                    // Open registry key
+                    using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
+                    {
+                        // Check if must write to registry
+                        if (this.startAtLogonToolStripMenuItem.Checked)
+                        {
+                            // Add app value
+                            registryKey.SetValue("ClipHoard", $"\"{Application.ExecutablePath}\" /autostart");
+                        }
+                        else
+                        {
+                            // Erase app value
+                            registryKey.DeleteValue("ClipHoard", false);
+                        }
+                    }
+                }
+                catch
+                {
+                    // Inform user
+                    MessageBox.Show("Error when interacting with the Windows registry.", "Registry error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         /// <summary>
@@ -434,7 +464,7 @@ namespace ClipHoard
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: Pareidol{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #55, Week #08 @ February 24, 2022",
+                $"Made for: Pareidol{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #85, Week #12 @ March 26, 2022",
                 licenseText,
                 this.Icon.ToBitmap())
             {
@@ -473,6 +503,13 @@ namespace ClipHoard
 
             // Hack Topmost on start [DEBUG]
             this.TopMost = this.settingsData.TopMost;
+
+            // Open registry key
+            using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", false))
+            {
+                // Toggle check box by app value presence
+                this.startAtLogonToolStripMenuItem.Checked = registryKey.GetValueNames().Contains("ClipHoard");
+            }
         }
 
         /// <summary>
