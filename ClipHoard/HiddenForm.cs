@@ -167,8 +167,8 @@ namespace ClipHoard
         /// <param name="e">Event arguments.</param>
         private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Close
-            this.ExitThread();
+            // Close main form
+            this.mainForm.Close();
         }
 
         /// <summary>

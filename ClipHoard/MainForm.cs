@@ -483,16 +483,16 @@ namespace ClipHoard
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // Set settings from GUI
-            this.GuiToSettingsSata();
+            this.GuiToSettingsData();
 
             // Save to disk
             this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
 
         /// <summary>
-        /// GUIs to settings sata.
+        /// GUIs to settings data.
         /// </summary>
-        private void GuiToSettingsSata()
+        private void GuiToSettingsData()
         {
             // Options
             this.settingsData.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
