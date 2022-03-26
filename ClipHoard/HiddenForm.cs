@@ -5,6 +5,7 @@ namespace ClipHoard
     // Directives
     using System;
     using System.Runtime.InteropServices;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     /// <summary>
@@ -171,9 +172,49 @@ namespace ClipHoard
         }
 
         /// <summary>
+        /// TODO Pastes async. [May need some work on the visible + close logic]
+        /// </summary>
+        /// <param name="delay">Delay.</param>
+        /// <param name="closePopup">If set to <c>true</c> close popup.</param>
+        internal async void PasteAsync(int delay, bool closePopup)
+        {
+            // Flags
+            bool mainFormVisible = this.mainForm.Visible;
+            bool popupFormVisible = this.popupForm.Visible;
+
+            // Hide
+            if (mainFormVisible)
+            {
+                this.mainForm.Hide();
+            }
+
+            if (popupFormVisible)
+            {
+                this.popupForm.Hide();
+            }
+
+            // Delay
+            await Task.Delay(delay);
+
+            // Paste
+            SendKeys.Send("^v");
+
+            // Restore
+            if (mainFormVisible)
+            {
+                this.mainForm.Show();
+            }
+
+            if (!closePopup && popupFormVisible)
+            {
+                this.popupForm.Show();
+            }
+        }
+
+        /// <summary>
         /// Exits the thread.
         /// </summary>
-        public void ExitThread()
+        internal void ExitThread()
         {
             // Close application
             this.applicationContext.ExitThread();
@@ -211,7 +252,7 @@ namespace ClipHoard
                 }
 
                 // Set popup form
-                this.popupForm = new PopupForm(this.mainForm.DataTable, this.mainForm.ClosePopupAfterSelection)
+                this.popupForm = new PopupForm(this.mainForm.DataTable)
                 {
                     // Set properties
                     TopMost = true,

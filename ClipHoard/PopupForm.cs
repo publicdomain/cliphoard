@@ -22,24 +22,16 @@ namespace ClipHoard
         private DataTable dataTable = null;
 
         /// <summary>
-        /// The close on select.
-        /// </summary>
-        private bool closeOnSelect;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="T:ClipHoard.PopupForm"/> class.
         /// </summary>
         /// <param name="hoardDataTable">Hoard data table.</param>
-        public PopupForm(DataTable hoardDataTable, bool closeOnSelect)
+        public PopupForm(DataTable hoardDataTable)
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
 
             // Set datatable
             this.dataTable = hoardDataTable;
-
-            // Set close on select
-            this.closeOnSelect = closeOnSelect;
 
             // Populate list
             for (int i = 0; i < hoardDataTable.Rows.Count; i++)
@@ -49,21 +41,24 @@ namespace ClipHoard
         }
 
         /// <summary>
-        /// Handles the popup list box selected index changed.
+        /// TODO Handles the popup list box selected index changed. [Can improve the hidden form castings]
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnPopupListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            // Copy selecion to clipboard
+            // Copy selection to clipboard
             Clipboard.Clear();
             Clipboard.SetText(this.dataTable.Rows[this.popupListBox.SelectedIndex][1].ToString());
 
             // Update count
             ((HiddenForm)this.Owner).mainForm.CopiedCountToolStripStatusLabelText = (Convert.ToInt32(((HiddenForm)this.Owner).mainForm.CopiedCountToolStripStatusLabelText) + 1).ToString();
 
+            // Paste
+            ((HiddenForm)this.Owner).PasteAsync(1000, ((HiddenForm)this.Owner).mainForm.ClosePopupAfterSelection);
+
             // Close on selection
-            if (this.closeOnSelect)
+            if (((HiddenForm)this.Owner).mainForm.ClosePopupAfterSelection)
             {
                 this.Close();
             }
