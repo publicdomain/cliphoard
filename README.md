@@ -23,10 +23,8 @@ v0.1.0:
 - Always on top.
 - Popup on cursor position.
 - Close popup on selection.
-- Auto-paste with configurable delay.
-- Send to tray.
 
-Day #85, Week #12 @ March 26, 2022
+Day #55, Week #08 @ February 24, 2022
 
 ==========
 
@@ -42,4 +40,4 @@ Thanks & keep on rocking!
 
 ==========
 
-Enjoy more free releases @ [https://publicdomain.is](https://publicdomain.is)
+Enjoy more free releases @ our website: [https://publicdomain.is](https://publicdomain.is)
