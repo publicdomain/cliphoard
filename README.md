@@ -14,6 +14,14 @@ Targets Microsoft .NET framework v4.5 (Native to Windows 8+)
 
 Notes:
 
+v0.2.0:
+
+- Auto-paste with configurable delay.
+- Send to tray.
+
+Day #85, Week #12 @ March 26, 2022
+
+
 v0.1.0:
 - Editable title and value for items.
 - Configurable hotkey.
